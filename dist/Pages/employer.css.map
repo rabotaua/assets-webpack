@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "employer.css",
+	"sources": [
+		"../../src/Pages/employer.scss",
+		"../../src/controls/employer/messages/welcomeMessage.scss"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,cAAc,CAAC;EACb,WAAW,EAAE,6BAA6B;EAC1C,OAAO,EAAE,SAAS;EAClB,UAAU,EAAE,OAAO;EACnB,MAAM,EAAE,iBAAiB;EACzB,aAAa,EAAE,GAAG;EAClB,aAAa,EAAE,GAAG,GAMnB;EAZD,AAOE,cAPY,CAOZ,MAAM,CAAC;IACL,KAAK,EAAE,OAAO;IACd,SAAS,EAAE,IAAI;IACf,YAAY,EAAE,IAAI,GACnB"
+}

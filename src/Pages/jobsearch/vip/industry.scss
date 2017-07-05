@@ -1,0 +1,123 @@
+$border: 1px solid rgba(0, 0, 0, 0.12);
+
+
+table tr.last-item-set-border {
+	& .f-companydescr-wrapper {
+		border-bottom: $border;
+	}
+}
+
+
+.f-industrysearch {
+	
+	&-flexwrap.fd-f-left {
+		align-items: flex-end; 
+	}
+	&-label {
+		margin-bottom: 3px;
+		display: inline-block;
+	}
+
+	&-input {
+		width: 445px;
+	}
+
+	&-findbtn {
+		padding-top: 12px !important;
+		padding-bottom: 12px !important;
+		margin-left: 10px !important;
+	}
+}
+
+
+
+
+.f-companydescr {
+	&-wrapper {
+		overflow: hidden;
+		padding: 40px 0;
+		border-top: $border;
+	}
+
+	&-logowrap {
+		width: 130px;
+		flex: 0 0 130px;
+	}
+
+	&-logoimg {
+		max-width: 95px;
+	}
+
+	&-vcountwrap {
+		width: 150px;
+		flex: 0 0 150px;
+	}
+
+	&-aboutcontent {
+		border-right: 1px solid rgba(0, 0, 0, 0.12);
+		padding-right: 30px;
+	}
+
+	&-aboutdescrtxt {
+		color: rgba(0, 0, 0, 0.54);
+		margin: 3px 0 0;
+	}
+
+	&-aboutvipicon {
+		color: #6fd3ff;
+		margin-right: 8px;
+		position: relative;
+		top: -2px;
+	}
+
+	&-aboutpremiumwrap {
+		margin: 0;
+		margin-bottom: 10px;
+	}
+
+	&-aboutwrap {
+		padding-left: 40px;
+		border-left: 1px solid rgba(0, 0, 0, 0.12);
+	}
+
+	&-aboutitle {
+		margin-top: 5px;
+		position: relative;
+		padding-bottom: 15px;
+		margin-bottom: 0;
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 150%;
+			height: 1px;
+			background-color: rgba(0, 0, 0, 0.12);
+		}
+	}
+
+	&-innerflex {
+		padding-top: 20px;
+	}
+
+	&-chkbx-label {
+		padding-left: 5px;
+	}
+
+	&-nothingfound {
+		margin-top: 50px;
+		margin-bottom: 35px;
+	}
+
+	&-goback {
+		& i:before {
+			transform: rotate(90deg);
+		}
+
+		&-viptitle {
+			margin-top: 25px;
+			margin-bottom: 5px;
+		}
+	}
+}

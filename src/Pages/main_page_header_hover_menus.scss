@@ -1,0 +1,97 @@
+.f-searchby > span, .f-searchby > .f-input {
+  margin-right: 14px;
+}
+
+.f-seo-tabs-container {
+  max-width: 960px;
+  margin: auto;
+}
+
+.f-seo-tabs {
+  position: relative;
+  box-sizing: border-box;
+
+  & li, & a {
+    white-space: nowrap;
+  }
+}
+
+.f-seo-tabs .f-inner-tabs {
+  position: relative;
+}
+
+.f-rubrics-wrap {
+  padding: 0 35px;
+}
+
+.f-seo-tabs.f-all-cities {
+  max-width: 670px;
+}
+
+.f-seo-tabs.f-all-cities .f-rubrics-innerpaddings {
+  padding: 20px 0;
+}
+
+.f-seo-tabs .f-rubrics-itemsblock a {
+  font-size: 14px;
+}
+
+.f-rubrics-innerpaddings > .fi-close-big {
+  display: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+}
+
+.f-seo-tabs .f-seo-tabs-footer {
+  display: none;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.f-seo-tabs .f-rubrics-container > div.f-rubrics-itemsblock {
+  display: none;
+}
+
+.f-seo-tabs .f-rubrics-container > div.f-rubrics-itemsblock.active {
+  display: block;
+}
+
+.f-seo-tabs .f-seo-tabs-footer .f-btn-control-default:first-of-type {
+  margin-right: 45px;
+}
+
+.f-seo-tabs .f-seo-tabs-footer .f-btn-control-default {
+  background: none;
+}
+
+.f-searchby .f-input .f-input-pseudo-select {
+  border-bottom: none;
+  display: block;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 960px) {
+  .f-seo-tabs {
+    margin: 0 20px;
+  }
+
+  .f-seo-tabs.f-all-cities {
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .f-rubrics-innerpaddings {
+    padding: 20px 0;
+  }
+
+  .f-searchby span {
+    display: none;
+  }
+
+  .f-searchby .fd-merchant {
+    font-size: 14px;
+  }
+}

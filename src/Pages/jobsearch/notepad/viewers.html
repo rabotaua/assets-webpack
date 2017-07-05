@@ -1,0 +1,175 @@
+<div class="l-viewed-resume-list">
+    <div class="m-view-list-title">
+        <h1 class="f-custom-heading fd-fat-ronin" data-bind="text: dictionary.title"></h1>
+        <h2 class="subheader" data-bind="text: dictionary.subtitle"></h2>
+    </div>
+    <div data-bind="foreach: resumes">
+        <div class="viewed-resume-container" data-bind="if: totalView">
+            <div class="m-viewed-resume">
+                <div class="title">
+                    <div class="view-info">
+                        <i class="fi-visible"></i>
+                        <span data-bind="text: totalView"></span>
+                        <span data-bind="text: viewsTotalText"></span>
+                    </div>
+                    <div class="position">
+                        <h4>
+                            <a target="_blank" data-bind="text: position, attr: {href: cvLink}"></a>
+                        </h4>
+                    </div>
+                    <div class="fd-f">
+                        <div data-bind="if: salary">
+                            <span class="salary" data-bind="text: salary"></span>
+                        </div>
+                        <div data-bind="ifnot: salary">
+                            <span class="no-salary" data-bind="text: $parent.dictionary.noSalary"></span>
+                        </div>
+                        <div class="city">
+                            <i class="fi-location"></i>
+                            <span data-bind="text: city"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-view-list-container" data-bind="css: {allShown: !isShowViewCountVisible()}">
+                    <div data-bind="foreach: views">
+                        <div class="m-view-item">
+                            <div class="container fd-f" style="margin-left: 0;">
+                                <div class="logo fd-f-center-middle">
+                                  <span data-bind="if: notebookId">
+                                    <a target="_blank" data-bind="attr: {href: companyLink}">
+                                        <img src="" data-bind="attr: {src: companyLogo}" alt="logo">
+                                    </a>
+                                  </span>
+                                    <span data-bind="ifnot: notebookId">
+                                    <img src="" data-bind="attr: {src: companyLogo}" alt="logo">
+                                </span>
+                                </div>
+                                <div class="info">
+                                    <div class="view-info">
+                                        <i class="fi-visible"></i>
+                                        <span data-bind="text: reviewDate"></span>
+                                    </div>
+                                    <div class="company-info">
+                                        <!--Bless a shit code !!!-->
+                                        <span data-bind="if: notebookId">
+                                        <a target="_blank" data-bind="text: companyName, attr: {href: companyLink}"></a>
+                                    </span>
+                                        <span data-bind="ifnot: notebookId">
+                                        <span data-bind="text: companyName"></span>
+                                    </span>
+                                    </div>
+                                    <div class="branch-info">
+                                        <span data-bind="text: branchName"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-bind="if: isShowViewCountVisible">
+                        <div class="m-show-more">
+                            <div class="f-input">
+                            <span class="f-input-pseudo-link" data-bind="click: getViews">
+                                <span data-bind="text: $parent.dictionary.more"></span>
+                                <span data-bind="text: showViewCount"></span>
+                                <span data-bind="text: viewedViewText"></span>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="if: isRecommendedBlockVisisble">
+                <div class="m-recommended-list-container">
+                    <div style="padding: 26px 40px 0; background-color: #f9f9f9;">
+                        <h2 class="f-vac-block-title fd-beefy-soldier f-custom-heading">
+                            <span data-bind="text: $parent.dictionary.recommendedTitle"></span>
+                        </h2>
+                    </div>
+                    <div data-bind="foreach: recommended">
+                        <article class="f-vacancylist-vacancyblock m-recommended-item">
+                            <div class="container">
+                                <div class="fd-f-left">
+                                    <div class="fd-f1">
+                                        <h3 class="f-vacancylist-vacancytitle">
+                                            <a
+                                               data-bind="click: $parent._gaVacancyClick(vacancyLink)">
+                                                <span data-bind="text: name" class="f-visited-enable ga_cv_tag"></span>
+                                                <!--<i data-bind="visible: hot" class="fi-hot" data-tooltip="#hot-tip"></i>-->
+                                                <!--<i data-bind="visible: isSpecialNeeds" data-tooltip="#special-needs-people"-->
+                                                <!--class="f-text-gray fi-disabled-icon"></i>-->
+                                            </a>
+                                        </h3>
+                                        <div class="fd-f">
+                                            <p class="f-vacancylist-companyname fd-thin-craftsmen f-text-dark-bluegray">
+                                                <a class="f-text-dark-bluegray f-visited-enable"
+                                                   data-bind="attr: {href: companyLink}">
+                                                    <span data-bind="text: companyName" style="color: #777;"></span>
+                                                    <div data-bind="if: isAgency">
+                                                        <span class="f-vaclist123_agency f-text-gray fd-thin-soldier">Агентство</span>
+                                                    </div>
+                                                </a>
+                                            </p>
+                                            <div class="f-vacancylist-characs-block fd-f-left-middle">
+                                                <!--<div data-bind="if: salary">-->
+                                                <!--<p class="fd-beefy-soldier -price">-->
+                                                <!--<span data-bind="text: salary"></span>-->
+                                                <!--<span>грн.</span>-->
+                                                <!--</p>-->
+                                                <!--</div>-->
+                                                <div data-bind="if: $parent.city">
+                                                    <p class="fd-thin" style="color: #777; margin-left: 20px;">
+                                                        <i class="fi-location"></i>
+                                                        <span data-bind="text: $parent.city"
+                                                              style="position: relative; top: -4px;"></span>
+                                                    </p>
+                                                </div>
+                                                <!--<div data-bind="if: isCompanyProfile">-->
+                                                <!--<p class="fd-merchant f-text-dark-bluegray">-->
+                                                <!--<i class="fi-company-profile"></i>-->
+                                                <!--<a class="f-text-dark-bluegray" rel="nofollow"-->
+                                                <!--data-bind="attr: {href: companyLink}">-->
+                                                <!--<span data-bind="text: $root.dictionary.companyProfile"></span>-->
+                                                <!--</a>-->
+                                                <!--</p>-->
+                                                <!--</div>-->
+                                            </div>
+                                            <!--<p style="cursor: pointer;" data-bind="click: $parent.followVacancyLink(vacancyLink)"-->
+                                            <!--class="f-vacancylist-shortdescr f-text-gray fd-craftsmen">-->
+                                            <!--<span data-bind="text: shortDescription, click: $root._gaqPush"></span>-->
+                                            <!--</p>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="fd-f-left-middle fd-f1 f-vacancylist-bottomblock">-->
+                            <!--<div class="fd-f1">-->
+                            <!--&lt;!&ndash;<div class="fd-craftsmen f-vacancylist-tags">&ndash;&gt;-->
+                            <!--&lt;!&ndash;{{ #listTags }}&ndash;&gt;-->
+                            <!--&lt;!&ndash;<a class="f-vacancylist-tags-linkcolor">&ndash;&gt;-->
+                            <!--&lt;!&ndash;{{ name }}&ndash;&gt;-->
+                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                            <!--&lt;!&ndash;{{ /listTags}}&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<div>-->
+                            <!--<p class="f-vacancylist-agotime f-text-light-gray fd-craftsmen" data-bind="text: agoTime"></p>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </article>
+                    </div>
+                    <div data-bind="if: isShowRecommendedCountVisible">
+                        <div class="m-show-more m-show-more-recommended">
+                            <div class="f-input">
+                        <span class="f-input-pseudo-link" data-bind="click: getMoreVacancies">
+                            <span data-bind="text: $parent.dictionary.more"></span>
+                            <span data-bind="text: showRecommendedCount"></span>
+                            <span data-bind="text: viewedRecommendedText"></span>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

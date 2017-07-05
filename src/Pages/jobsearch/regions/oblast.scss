@@ -1,0 +1,122 @@
+@import '../../../global_vars';
+$first_desktop_bp: 1280px;
+$second_desktop_bp: 1025px;
+$tablet_bp: 800px;
+$mobile_bp: 570px;
+
+
+
+.f-bigcities {
+
+	&-wrap {
+		column-count: 5;
+
+		@media screen and (max-width: $first_desktop_bp) {
+			column-count: 4;
+		}
+		@media screen and (max-width: $second_desktop_bp) {
+			column-count: 3;
+		}
+		@media screen and (max-width: $tablet_bp) {
+			column-count: 2;
+		}
+		@media screen and (max-width: $mobile_bp) {
+			column-count: 1;
+		}
+	}
+
+	&-itemwrapper {
+		padding: 15px 0;
+		page-break-inside: avoid;
+    	break-inside: avoid-column;
+
+		@media screen and (min-width: $second_desktop_bp + 1) and (max-width: $first_desktop_bp) {
+
+			// hide Dnepr and Nikaloev :C
+			&[data-region="4"], &[data-region="15"] {
+				display: none;
+			}
+		}
+		@media screen and (min-width: $tablet_bp + 1) and (max-width: $second_desktop_bp) {
+			// hide Ternopil :C
+			&[data-region="20"] {
+				display: none;
+			}
+		}
+	}
+
+	$s3_path: "#{$CLOUD_IMAGES}/2016/12/cities/";
+
+	$cities_pic: (
+		1: "kiev.jpg",
+		2: "lvov.jpg",
+		3: "odessa.jpg",
+		4: "dnepr.jpg",
+		9: "zaporoje.jpg",
+		14: "lutsk.jpg",
+		15: "nikolaev.jpg",
+		20: "ternopol.jpg",
+		21: "kharkov.jpg",
+		31: "krivoy-rog.jpg",
+	);
+
+	&-bgpic {
+		margin: 0;
+		padding: 0;
+		height: 115px;
+		width: 100%;
+		background: transparent no-repeat;
+		background-size: cover;
+		background-position: center center;
+
+		@each $cityid, $pic in $cities_pic {
+			&[data-region="#{$cityid}"] { background-image: url(#{$s3_path + $pic}) }
+		}
+	}
+
+	&-item {
+		height: 175px;
+		width: 175px;
+		position: relative;
+		margin: 0 auto;
+
+		@media screen and (max-width: $mobile_bp) {
+			& {
+				width: 320px;
+			}
+		}
+		@media screen and (max-width: 470px) {
+			& {
+				width: 170px;
+			}
+		}
+	}
+
+
+	&-item, &-bgpic {
+		border-radius: 5px 5px 0 0;
+	}
+
+	&-link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	&-cityname {
+		margin: 0;
+		padding: 20px 5px 0;
+
+		&.-withdescr {
+			padding-top: 9px;
+		}
+
+		&-descr {
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+		}
+	}
+}

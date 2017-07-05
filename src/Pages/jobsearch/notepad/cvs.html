@@ -1,0 +1,222 @@
+<div class="l-cvs-list">
+	<div class="m-cvs-title">
+		<h1 class="main-heading f-custom-heading fd-fat-ronin">
+			<span data-bind="text: dictionary.title"></span>
+			<span class="fd-merchant fd-regular grey">(<span data-bind="text: resumesAvailableText"></span>)</span>
+		</h1>
+		<h3>
+			<span data-bind="text: dictionary.subtitle"></span>
+			<span class="fd-fat-merchant" data-bind="text: resumesCount"></span>
+			<span>резюме</span>
+		</h3>
+		<h4 class="fd-craftsmen grey">
+			<span data-bind="text: dictionary.maxAvailable"></span>
+			<span data-bind="text: maxAvailable"></span>
+			<span>резюме</span>
+		</h4>
+	</div>
+	<div data-bind="foreach: resumes">
+		<div class="m-cv-item">
+			<div class="cv-item-container" data-bind="css: {isInactive: isResumeInActive}">
+				<div class="header fd-f-between-middle">
+					<div class="fd-f">
+						<div class="fd-f fd-f-1"></div>
+						<div data-bind="if: isResumeInActive">
+						<span class="fd-craftsmen grey" style="margin-right: 22px;">
+							<i class="fi-cv-dont-active"></i>
+							<span data-bind="text: $parent.dictionary.inActiveResume"></span>
+						</span>
+							<span data-bind="if: canResumeBeActivated">
+								<button class="f-btn-primary fd-beefy-soldier"
+										data-bind="text: $parent.dictionary.publish, click: publish"></button>
+						</span>
+							<span data-bind="ifnot: canResumeBeActivated">
+							<a class="f-btn-primary fd-beefy-soldier"
+							   data-bind="text: $parent.dictionary.fill, attr: {href: linkToCVBuilder}"></a>
+						</span>
+						</div>
+						<div data-bind="ifnot: isResumeInActive">
+				<span class="fd-craftsmen grey" style="margin-right: 22px;">
+					<i class="fi-cv-renew"></i>
+					<span data-bind="text: $parent.dictionary.updated"></span>
+					<span data-bind="text: updateDateFormatted"></span>
+				</span>
+							<span data-bind="if: canResumeBeActivated">
+				<button class="f-btn-primary fd-beefy-soldier"
+						data-bind="text: $parent.dictionary.renew, click: updateDate"></button>
+				</span>
+							<span data-bind="ifnot: canResumeBeActivated">
+					<a class="f-btn-primary fd-beefy-soldier"
+					   data-bind="text: $parent.dictionary.fill, attr: {href: linkToCVBuilder}"></a>
+				</span>
+						</div>
+					</div>
+					<div class="fd-craftsmen f-additional-links">
+						<div class="f-additional-links-title f-input">
+							<span class="f-input-pseudo-select" data-bind="text: $parent.dictionary.else"></span>
+							<i class="fi-drop-down-icon f-input-pseudo-link-icon"></i>
+						</div>
+						<div class="f-additional-links-holder f-tooltip f-paper fd-c-stretch fd-craftsmen">
+							<a data-bind="text: $parent.dictionary.preview, attr: {href: CVPrewiew}"></a>
+							<a data-bind="text: $parent.dictionary.download, attr: {href: linkToDownLoadCV}"></a>
+							<a href="#"
+							   data-bind="text: $parent.dictionary.hide, click: hideCV, visible: !isResumeInActive()"></a>
+							<a data-bind="text: $parent.dictionary.edit, attr: {href: linkToCVBuilder}"></a>
+							<a href="#"
+							   data-bind="text: $parent.dictionary.createCopy, click: createCopy, visible: canCopyBeCreated"></a>
+							<a href="#" data-bind="text: $parent.dictionary.remove, click: removeCV"></a>
+						</div>
+					</div>
+				</div>
+				<div class="content">
+					<div class="fd-f">
+						<div class="avatar">
+							<img width="60" height="80" data-bind="attr: {src: photo}" alt="avatar">
+						</div>
+						<div>
+							<h2 class="position">
+								<a class="fd-beefy-soldier"
+								   data-bind="text: positionText, attr: {href: linkToCVBuilder}"></a>
+							</h2>
+							<div class="fd-f fd-craftsmen personal-info">
+								<p style="margin-right: 16px;">
+									<span data-bind="text: salaryText"></span>
+								</p>
+								<p>
+									<i class="fi-location"></i>
+									<span data-bind="text: cityText"></span>
+								</p></div>
+							<div class="activate">
+								<div class="fd-f" data-bind="if: canResumeBeActivated">
+									<div class="f-switch-checkbox" data-bind="css: {disabled: !canResumeBeActivated()}">
+										<input type="checkbox"
+											   data-bind="disabled: canResumeBeActivated, attr: {id: id}, event: {change: toggleActiveLevel}, checked: isResumeChecked()">
+										<label data-bind="attr: {for: id}">
+											<div class="f-switcher"></div>
+										</label>
+									</div>
+									<div>
+										<span data-bind="text: activeLevelText	"></span>
+									</div>
+								</div>
+							</div>
+							<div class="views">
+								<div data-bind="if: viewCount">
+									<a class="fd-craftsmen" data-bind="attr: {href: linkToCVView}">
+										<i class="fi-visible"></i>
+										<span data-bind="text: viewCount"></span>
+										<span data-bind="text: viewCountText"></span>
+									</a>
+								</div>
+								<div data-bind="ifnot: viewCount">
+									<span class="fd-craftsmen grey">
+										<i class="fi-visible"></i>
+										<span data-bind="text: viewCount"></span>
+										<span data-bind="text: viewCountText"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="m-recommended-list-container" data-bind="toggleRecommended: isRecommendedBlockVisisble()">
+				<div style="padding: 26px 40px 0; background-color: #f9f9f9;">
+					<h2 class="f-vac-block-title fd-beefy-soldier f-custom-heading">
+						<span data-bind="text: $parent.dictionary.recommendedTitle"></span>
+					</h2>
+				</div>
+				<div data-bind="foreach: recommended">
+					<article class="f-vacancylist-vacancyblock m-recommended-item">
+						<div class="container">
+							<div class="fd-f-left">
+								<div class="fd-f1">
+									<h3 class="f-vacancylist-vacancytitle">
+										<a class="f-visited-enable"
+										   data-bind="click: $parent._gaVacancyClick(vacancyLink)">
+											<span data-bind="text: name" class="ga_cv_tag ga_under_cv"></span>
+											<!--<i data-bind="visible: hot" class="fi-hot" data-tooltip="#hot-tip"></i>-->
+											<!--<i data-bind="visible: isSpecialNeeds" data-tooltip="#special-needs-people"-->
+											<!--class="f-text-gray fi-disabled-icon"></i>-->
+										</a>
+									</h3>
+									<div class="fd-f">
+										<p class="f-vacancylist-companyname fd-thin-craftsmen f-text-dark-bluegray">
+											<a class="f-text-dark-bluegray f-visited-enable"
+											   data-bind="attr: {href: companyLink}">
+												<span data-bind="text: companyName" style="color: #777;"></span>
+												<div data-bind="if: isAgency">
+													<span class="f-vaclist123_agency f-text-gray fd-thin-soldier">Агентство</span>
+												</div>
+											</a>
+										</p>
+										<div class="f-vacancylist-characs-block fd-f-left-middle">
+											<!--<div data-bind="if: salary">-->
+											<!--<p class="fd-beefy-soldier -price">-->
+											<!--<span data-bind="text: salary"></span>-->
+											<!--<span>грн.</span>-->
+											<!--</p>-->
+											<!--</div>-->
+											<div data-bind="if: $parent.city">
+												<p class="fd-thin" style="color: #777; margin-left: 20px;">
+													<i class="fi-location"></i>
+													<span data-bind="text: $parent.city"
+														  style="position: relative; top: -4px;"></span>
+												</p>
+											</div>
+											<!--<div data-bind="if: isCompanyProfile">-->
+											<!--<p class="fd-merchant f-text-dark-bluegray">-->
+											<!--<i class="fi-company-profile"></i>-->
+											<!--<a class="f-text-dark-bluegray" rel="nofollow"-->
+											<!--data-bind="attr: {href: companyLink}">-->
+											<!--<span data-bind="text: $root.dictionary.companyProfile"></span>-->
+											<!--</a>-->
+											<!--</p>-->
+											<!--</div>-->
+										</div>
+										<!--<p style="cursor: pointer;" data-bind="click: $parent.followVacancyLink(vacancyLink)"-->
+										<!--class="f-vacancylist-shortdescr f-text-gray fd-craftsmen">-->
+										<!--<span data-bind="text: shortDescription, click: $root._gaqPush"></span>-->
+										<!--</p>-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--<div class="fd-f-left-middle fd-f1 f-vacancylist-bottomblock">-->
+						<!--<div class="fd-f1">-->
+						<!--&lt;!&ndash;<div class="fd-craftsmen f-vacancylist-tags">&ndash;&gt;-->
+						<!--&lt;!&ndash;{{ #listTags }}&ndash;&gt;-->
+						<!--&lt;!&ndash;<a class="f-vacancylist-tags-linkcolor">&ndash;&gt;-->
+						<!--&lt;!&ndash;{{ name }}&ndash;&gt;-->
+						<!--&lt;!&ndash;</a>&ndash;&gt;-->
+						<!--&lt;!&ndash;{{ /listTags}}&ndash;&gt;-->
+						<!--&lt;!&ndash;</div>&ndash;&gt;-->
+						<!--</div>-->
+						<!--<div>-->
+						<!--<p class="f-vacancylist-agotime f-text-light-gray fd-craftsmen" data-bind="text: agoTime"></p>-->
+						<!--</div>-->
+						<!--</div>-->
+					</article>
+				</div>
+				<div data-bind="if: isShowRecommendedCountVisible">
+					<div class="m-show-more m-show-more-recommended">
+						<div class="f-input">
+                        <span class="f-input-pseudo-link" data-bind="click: getMoreVacancies">
+                            <span data-bind="text: $parent.dictionary.else"></span>
+                            <span data-bind="text: showRecommendedCount"></span>
+                            <span data-bind="text: viewedRecommendedText"></span>
+                        </span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-bind="if: isCreateCVButtonVisible">
+	<div class="m-create-cv-button">
+		<a href="/jobsearch/cvwelcome?step=2" class="f-btn-control-seafoam fd-beefy-craftsmen">
+			<span data-bind="text: $root.dictionary.createCV"></span>
+		</a>
+	</div>
+</div>

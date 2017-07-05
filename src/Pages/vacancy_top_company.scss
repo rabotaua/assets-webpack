@@ -1,0 +1,82 @@
+@media only screen and (max-width: 600px) {
+  table.logos,
+  table.logos tbody,
+  table.logos tr,
+  table.logos td {
+    display: inline-block;
+  }
+}
+
+.f-logos {
+  flex-wrap: wrap;
+  max-width: 1190px;
+  margin: auto;
+}
+
+.f-logos .f-logo-container a {
+  width: 105px;
+  height: 105px;
+}
+
+.f-logo-container {
+  width: 198px;
+  height: 125px;
+  box-sizing: border-box;
+  margin: 23px 0;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+  margin-right: -1px;
+}
+
+@media only screen and (max-width: 1250px) {
+  .f-logos {
+    max-width: 1020px;
+  }
+
+  .f-logos > .fd-f-center-middle:last-child {
+    width: 140px;
+  }
+
+  .f-logos > .fd-f-center-middle:last-child span,
+  .f-logos > .fd-f-center-middle:last-child i {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 1070px) {
+  .f-logos {
+    max-width: 850px;
+  }
+}
+
+@media only screen and (max-width: 910px) {
+  .f-logos {
+    max-width: 680px;
+  }
+}
+
+@media only screen and (max-width: 740px) {
+  .f-logos {
+    max-width: 510px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .f-logos {
+    max-width: 420px;
+  }
+
+  .f-logo-container {
+    width: 140px;
+  }
+
+  .f-logos > div:last-child button {
+    max-width: none;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  .f-logos {
+    max-width: 280px;
+  }
+}

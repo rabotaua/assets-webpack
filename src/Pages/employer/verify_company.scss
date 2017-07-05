@@ -1,0 +1,190 @@
+@import '../../commons/two-columns-box.scss';
+@import '../../global_vars';
+
+
+.f-verifycompany {
+	&__top-notify-block {
+		margin-top: 20px;
+		overflow: hidden;
+	}
+	&__wrap {
+		padding: 25px 40px;
+		margin-top: 7px;
+	}
+	&__inputblock {
+		margin-bottom: 8px;
+
+		&.f-input.error span.error-message {
+			bottom: 9px;
+		}
+
+		& input.error {
+			& span.error-message {
+				bottom: 9px;
+				left: 7px;
+			}
+		}
+		&.-egrpou {
+			& input {
+				width: 200px;
+			}
+		}
+	}
+	&__thirdparty {
+		margin-top: 15px;
+		padding-left: 20px;
+		color: #66cccc;
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 12px;
+			height: 16px;
+			background: transparent url('#{$CLOUD_IMAGES}/2017/02/verify_third_party.svg') left top no-repeat;
+		}
+	}
+	&__left, &__right {
+		transition: color 0.2s ease-in;
+		&:not(.-focus) {
+			color: #777777;
+			transition: color 0.2s ease-in;
+			& .f-btn-primary {
+				opacity: 0;
+				visibility: hidden;
+			}
+		}
+	}
+	&__vertical-separator {
+		padding-right: 72px;
+		padding-left: 72px;
+		position: relative;
+
+		& span {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			padding: 2px 0;
+			background-color: #fff;
+			transform: translate(-50%, -50%);
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 1px;
+			height: 100%;
+			background-color: #dddddd;
+		}
+	}
+	&__right {
+		position: relative;
+	}
+	&__phone-nooffset {
+		&.-title {
+			margin-bottom: 0;
+		}
+		&.-descr {
+			margin-top: 0;
+		}
+	}
+
+	&__validateblock {
+		& span.error-message {
+			color: #ff6e00;
+			display: block;
+			font-size: 10px;
+
+			&.-phonesite {
+				margin-bottom: 10px;
+			}
+		}
+	}
+	&__thanks-descr {
+		line-height: 18px;
+		margin: 0;
+	}
+	&__edrpou-tip {
+		color: #777;
+		margin-top: 0;
+	}
+}
+
+
+
+
+
+.txtEdrpou:focus ~ .edrpou-tooltip {
+	display: block !important;
+}
+
+.edrpou-tooltip {
+	border: none;
+	padding: 0;
+	background: #555555;
+	width: 333px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 20;
+    margin-left: calc(100% + 7px);
+    margin-top: -1px;
+	position: absolute !important;
+    display: none !important;
+
+	& p {
+    	font-size: 12px;
+    	line-height: 13px;
+	}
+
+	&::before {
+		content: '';
+		border: none;
+	    position: absolute;
+	    top: 50%;
+	    transform: translateY(-50%);
+	    right: 100%;
+	    width: 0;
+	    height: 0;
+
+	    border-left: none;
+	    border-top: 4px solid transparent;
+	    border-bottom: 4px solid transparent;
+	    border-right: 4px solid #555555;
+	}
+	&::after {
+		content: normal !important;
+	}
+}
+
+.edrpou-popup {
+	background: transparent;
+	border: none;
+
+	& .edrpoudlg.ui-dialog-content.ui-widget-content {
+		padding: 0 !important;
+		margin: 0 !important;
+		background: transparent;
+	}
+
+	& .f-container960 {
+		width: auto;
+	}
+	& .f-verifycompany__top-notify-block {
+		margin-top: 0;
+	}
+	& .f-colorinformative-block-left {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+	& .f-verifycompany__vertical-separator {
+		padding-right: 45px;
+		padding-left: 45px;
+	}
+	& .ui-widget-content a:not(.btn) {
+		color: #fff;
+	}
+}

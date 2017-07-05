@@ -1,0 +1,189 @@
+//SMACSS meth
+@import "../vacancy_list";
+
+//Base rules
+a {
+  cursor: pointer;
+}
+
+.l-viewed-resume-list {
+  max-width: 750px;
+  margin: 15px auto 0;
+}
+
+.m-view-list-title {
+  .subheader {
+    margin-top: 16px;
+    color: #333;
+  }
+}
+
+.m-viewed-resume {
+  .title {
+    position: relative;
+    padding: 24px 40px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 9px 0 rgba(0, 0, 0, .12);
+    .view-info {
+      font-size: 14px;
+      color: #777;
+      .fi-visible {
+        position: relative;
+        top: -.75px;
+        margin-right: 3px;
+      }
+    }
+    .position {
+      margin-top: 3px;
+      h4 {
+        &, a {
+          font-size: 18px;
+          font-family: "Graphik Medium", sans-serif;
+          color: #222;
+        }
+      }
+    }
+    .salary, .no-salary {
+      font-size: 14px;
+      color: #222;
+      margin-right: 16px;
+      vertical-align: top;
+    }
+    .salary {
+      font-family: "Graphik Medium", sans-serif;
+    }
+    .city {
+      font-size: 14px;
+      .fi-location {
+        font-size: 13px;
+        margin-right: 3px;
+      }
+    }
+  }
+}
+
+.viewed-resume-container {
+  &:not(:first-of-type) {
+    margin-top: 24px;
+  }
+}
+
+.m-view-list-container {
+  margin: 0 20px;
+  border: 1px solid #ddd;
+  border-top: none;
+  &.allShown {
+    .m-view-item:last-child .container {
+      border-bottom: none;
+    }
+  }
+}
+
+.m-view-item {
+  background-color: #fff;
+  .container {
+    margin: 0 40px;
+    padding: 16px 0;
+    border-bottom: 1px solid #ddd;
+    .logo {
+      width: 96px;
+      box-sizing: border-box;
+      border-right: 1px solid #ddd;
+      img {
+        max-width: 60px;
+      }
+    }
+    .info {
+      padding-left: 24px;
+      .view-info {
+        font-size: 14px;
+        color: #777;
+        .fi-visible {
+          position: relative;
+          top: -.75px;
+          margin-right: 5px;
+        }
+      }
+      .company-info {
+        &, a {
+          margin-top: 7px;
+          color: #222;
+        }
+      }
+      .branch-info {
+        margin-top: 5px;
+        font-family: 'Graphik Light', sans-serif;
+        font-size: 14px;
+        color: #777;
+      }
+    }
+  }
+}
+
+.m-show-more {
+  background-color: #fff;
+  padding: 24px 40px;
+  &-recommended {
+    background-color: #f9f9f9;
+  }
+}
+
+.f-input-pseudo-link {
+  padding-bottom: 6px;
+  font-size: 14px;
+  color: #3366cc;
+}
+
+.m-recommended-list-container {
+  @extend .m-view-list-container
+}
+
+.m-recommended-item {
+  @extend .m-view-item;
+  background-color: #f9f9f9;
+  .container {
+    padding: 20px 0;
+  }
+}
+
+.f-vacancylist-vacancytitle {
+  margin-bottom: 5px;
+}
+
+.f-vacancylist-vacancyblock {
+  &:last-of-type {
+    .container {
+      border-bottom: none;
+    }
+  }
+  border-top: none;
+}
+
+.f-vacancylist-vacancyblock {
+  padding: 0;
+}
+
+.f-vacancylist-characs-block {
+  .fi-location {
+    font-size: 14px;
+    vertical-align: top;
+  }
+  margin: 0;
+  p i {
+    margin-right: 2px;
+  }
+}
+
+.f-vacancylist-companyname {
+  max-width: 500px;
+  margin: 0;
+}
+
+.f-vac-block-title.f-custom-heading {
+  padding-bottom: 15px;
+  &::after {
+    width: 20px;
+    height: 3px;
+  }
+}

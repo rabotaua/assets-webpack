@@ -1,0 +1,61 @@
+.f-searchform-wpapper > div > span {
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+}
+
+.f-searchform-wpapper > div {
+    position: relative;
+}
+
+.f-searchform-wpapper {
+  width: 960px;
+  padding: 20px 10px 4px 10px;
+  position: relative;
+}
+
+.f-searchform-wpapper .seo-tabs {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+
+.f-searchform-wpapper .f-input-block,
+.f-searchform-wpapper .f-btn-primary {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.f-searchform-wpapper > div:not(:last-child) {
+  margin-right: 10px;
+}
+
+.f-searchform-wpapper .f-btn-primary {
+  height: 41px;
+}
+
+.f-searchform-wpapper > div:first-of-type input {
+  height: auto;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+@media only screen and (max-width: 960px) {
+  .f-searchform-wpapper {
+    width: 500px;
+  }
+
+  .f-searchform-wpapper > div:not(:last-child) {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #search_holder .f-searchform-wpapper {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

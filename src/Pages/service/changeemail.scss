@@ -1,0 +1,56 @@
+.email-container {
+  max-width: 750px;
+  margin: 10px auto 0;
+  padding: 25px 40px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.subtitle {
+  margin-top: 20px;
+  color: #222;
+}
+
+.f-input {
+  input {
+    width: 300px;
+  }
+}
+
+.links {
+  margin-top: 10px;
+  .examples {
+    margin-right: 3px;
+    font-size: 14px;
+    font-family: "Graphik Semibold", sans-serif;
+    color: #555;
+  }
+  a {
+    font-size: 13px;
+    color: #3366cc;
+  }
+}
+
+.alert-box {
+  max-width: 750px;
+  margin: auto;
+  padding: 24px 40px;
+  background-color: #aadcb4;
+  &-error {
+    background-color: #ffd180;
+    .title {
+      color: #555;
+    }
+  }
+  i {
+    font-size: 24px;
+    margin-right: 16px;
+  }
+  p {
+    margin: 0;
+    font-size: 22px;
+    font-family: 'Graphik Light', sans-serif;
+    color: #555;
+  }
+}
+
