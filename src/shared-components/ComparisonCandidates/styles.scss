@@ -1,17 +1,8 @@
 .f-cmprs-cands {
 	padding: 32px 40px;
-
-	&.-compact {
-		padding: 15px 20px;
-	}
-
-	&.-yellow {
+	&_yellow {
 		background-color: #fbfbe9;
 	}
-	&.-orange {
-		background-color: #ffd180;
-	}
-
 	&__wrapper {
 		margin-bottom: 100px;
 		& p {
@@ -96,9 +87,6 @@
 			margin-top: 7px;
 			max-width: 100%;
 			width: 100%;
-		}
-		&-pic {
-			margin-right: 16px;
 		}
 	}
 }

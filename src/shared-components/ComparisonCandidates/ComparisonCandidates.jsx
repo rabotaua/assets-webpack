@@ -6,7 +6,7 @@ const DudeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="9" height=
 
 const partsRepeater = (itemsArray = [], collapseView = false) => {
 	return itemsArray['parts'].map((part, index) => {
-		if (!part) return null
+		if(!part) return null
 
 		/* we get array with length of count dudes */
 		const dudesRepeater = [...new Array(calcDudesCount(part))]
@@ -15,22 +15,22 @@ const partsRepeater = (itemsArray = [], collapseView = false) => {
 
 		return <div style={{ width: `${part}%` }} className={blockClass}>
 			<p className={isHit ? 'fd-fat-craftsmen' : 'fd-beefy-craftsmen'}>{part}%</p>
-			{!collapseView ? dudesRepeater.map(() => <DudeIcon/>) : null}
+			{ !collapseView ? dudesRepeater.map(() => <DudeIcon/>) : null }
 		</div>
 	})
 }
 
-const PercentDescription = ({ parts, text, dictionary }) => {
+const PercentDescription = ({parts, text}) => {
 
 	const descriptionText = {
-		0: dictionary.lessThan,
-		1: dictionary.equalTo,
-		2: dictionary.moreThan
+		0: 'Эти кандидаты указали уровень зарплаты ниже, чем вы',
+		1: 'Эти кандидаты указали такой же уровень зарплаты:',
+		2: 'Эти кандидаты рассчитывают на более высокую зарплату',
 	}
 
 	return <div>
 		{parts.map((part, index) => {
-			if (!part) return null
+			if(!part) return null
 
 			const isHit = index === 1
 
@@ -38,7 +38,7 @@ const PercentDescription = ({ parts, text, dictionary }) => {
 				<p className={`fd-${isHit ? 'fat' : 'beefy'}-craftsmen f-cmprs-cands__percent-descr-value ${isHit ? '-hit' : ''}`}>
 					{part}%
 				</p>
-				{isHit
+				{ isHit
 					? <div className="f-text-dark-gray">
 						<span>{descriptionText[index]}</span>&nbsp;
 						<span className="fd-fat-craftsmen">{text}</span>
@@ -51,25 +51,23 @@ const PercentDescription = ({ parts, text, dictionary }) => {
 }
 
 
-const InsufficientData = ({ collapseView, compactMode, dictionary }) => {
-	if (collapseView) return null
-
-	return <div className={`f-cmprs-cands -yellow ${ compactMode ? '-compact' : '' }`}>
+const InsufficientData = ({ collapseView }) => {
+	return <div className="f-cmprs-cands f-cmprs-cands_yellow">
 		<div className="f-cmprs-cands__unsuff-wrap">
 			<div className="fd-f-left-middle">
-				<img className="f-cmprs-cands__unsuff-pic" src={`${ruavars.cloudImages}/2017/06/insufficient-data-icon.svg`} alt="insufficient-data"/>
+				<img style={{ marginRight: 16 }} src={`${ruavars.cloudImages}/2017/06/insufficient-data-icon.svg`} alt="insufficient-data"/>
 				<p className="fd-craftsmen">
-				<span className={compactMode ? 'fd-craftsmen' : 'fd-fat-craftsmen'}>
-					{dictionary.titleBold} &nbsp;
+				<span className={ collapseView ? 'fd-craftsmen' : 'fd-fat-craftsmen' }>
+					К сожалению, недостаточно информации для статистики. &nbsp;
 				</span>
-					{dictionary.title}
+					Мы пришлем вам статистику на e-mail, как только больше кандидатов пройдет опрос.
 				</p>
 			</div>
 		</div>
 
-		{!compactMode ? <div>
+		{ !collapseView ? <div>
 			<p className="fd-craftsmen" style={{ margin: '20px 0 5px' }}>
-				{dictionary.subTitle}
+				Сравнительная статистика по вакансии:
 			</p>
 			<div className="f-cmprs-cands__unsuff-vac">
 				<img src={`${ruavars.cloudImages}/2017/06/insufficient-vacancy.svg`} alt=""/>
@@ -78,72 +76,49 @@ const InsufficientData = ({ collapseView, compactMode, dictionary }) => {
 			<div className="fd-f-between" style={{ marginTop: 22 }}>
 				<div className="fd-f1 f-cmprs-cands__salary-block">
 					<h4 className="fd-fat-craftsmen f-text-dark-gray">
-						{dictionary.salaryExpect}
+						Ожидаемая зарплата
 					</h4>
 					<img className="f-cmprs-cands__unsuff-skeleton" src={`${ruavars.cloudImages}/2017/06/insufficient-salary.svg`} alt="salary"/>
 				</div>
 				<div className="fd-f1 f-cmprs-cands__exp-block">
 					<h4 className="fd-fat-craftsmen f-text-dark-gray">
-						{dictionary.experienceExpect}
+						Опыт работы на аналогичной позиции
 					</h4>
 					<img className="f-cmprs-cands__unsuff-skeleton" src={`${ruavars.cloudImages}/2017/06/insufficient-exp.svg`} alt="experience"/>
 				</div>
 			</div>
-		</div> : null}
+		</div> : null }
 
 	</div>
 }
 
-const YetNotAvailable = ({ surveyLink, collapseView, dictionary, compactMode }) => {
-	return !collapseView ? <div className={`f-cmprs-cands -orange ${ compactMode ? '-compact' : '' }`}>
-		<div className="f-cmprs-cands__unsuff-wrap">
-			<div className="fd-f-left">
-				<img className="f-cmprs-cands__unsuff-pic" src={`${ruavars.cloudImages}/2017/06/insufficient-data-icon.svg`} alt="insufficient-data"/>
-				<p className="fd-craftsmen">
-					{dictionary.descr}
-					<span style={{ display: 'block', marginTop: 10 }}>
-						<a href={surveyLink}>{dictionary.passSurvey}</a>
-					</span>
-				</p>
-			</div>
-		</div>
-	</div> : null
-}
-
 export default class ComparisonCandidates extends Component {
 	render() {
+		const {salary, experience, collapseView, showInsufficientData, dictionary} = this.props
 
-		const { yetNotAvailable, surveyLink, showInsufficientData, dictionary, collapseView, compactMode } = this.props
-
-		if (yetNotAvailable) {
-			return <YetNotAvailable surveyLink={surveyLink} dictionary={dictionary.yetNotAvailable} collapseView={collapseView} compactMode={compactMode} />
+		if( showInsufficientData ) {
+			return <InsufficientData collapseView={collapseView}/>
 		}
-
-		if (showInsufficientData) {
-			return <InsufficientData dictionary={dictionary.unsuff} collapseView={collapseView} compactMode={compactMode}/>
-		}
-
-		const { salary, experience } = this.props
 
 		return <div className="f-cmprs-cands">
 			<div className="fd-f-between">
 				<div className="fd-f1 f-cmprs-cands__salary-block">
-					<h4 className="fd-fat-craftsmen f-text-dark-gray f-cmprs-cands__part-title">{dictionary.salary.expect}</h4>
+					<h4 className="fd-fat-craftsmen f-text-dark-gray f-cmprs-cands__part-title">Ожидание по зарплате</h4>
 					<div className="fd-f-left f-cmprs-cands__parts fd-beefy-serf">
 						{partsRepeater(salary, collapseView)}
 					</div>
 
-					{!collapseView ? <PercentDescription dictionary={dictionary.salary} text={salary.text} parts={salary.parts}/> : null}
+					{ !collapseView ? <PercentDescription text={salary.text} parts={salary.parts}/> : null }
 				</div>
 				<div className="fd-f1 f-cmprs-cands__exp-block">
-					<h4 className="fd-fat-craftsmen f-text-dark-gray f-cmprs-cands__part-title">{dictionary.experience.expect}</h4>
+					<h4 className="fd-fat-craftsmen f-text-dark-gray f-cmprs-cands__part-title">Опыт работы</h4>
 					<div className="fd-f-left f-cmprs-cands__parts fd-beefy-serf">
 						{partsRepeater(experience, collapseView)}
 					</div>
 
-					{!collapseView ? <PercentDescription dictionary={dictionary.experience} parts={experience.parts} text={experience.text}/> : null}
+					{ !collapseView ? <PercentDescription parts={experience.parts} text={experience.text} /> : null }
 				</div>
 			</div>
-		</div>
+			</div>
 	}
 }

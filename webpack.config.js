@@ -1,24 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
+const getFiles = require('./getFilesHelper')
 
-
-const getFiles = () => {
-	const entryDir = './src/'
-	let webpackFormat = {}
-
-	const formatFilePath = (path) => path.replace(entryDir, '').replace('.js', '')
-
-	const files = glob.sync(`${entryDir}**/*.js`)
-
-	files.map(f => {
-		webpackFormat = Object.assign(webpackFormat, {
-			[formatFilePath(f)]: f
-		})
-	})
-
-	return webpackFormat
-}
 
 module.exports = {
 	// entry: [`webpack-hot-middleware/client`, './src/test.js'],
@@ -37,7 +21,7 @@ module.exports = {
 			}
 		]
 	},
-	// plugins: [
-	// 	new webpack.HotModuleReplacementPlugin(),
-	// ]
+	plugins: [
+		// new webpack.HotModuleReplacementPlugin(),
+	]
 }

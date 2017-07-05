@@ -6,27 +6,19 @@ const postcss = require('postcss-middleware')
 const autoprefixer = require('autoprefixer')
 const webpackMiddleware = require('webpack-dev-middleware')
 // const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('./webpack.config.js')
+const webpackConfig = require('./webpack.config.js')
 const destPath = path.join(__dirname, '/dist')
+const checkNeededRestart = require('./checkNeededRestart')
 
 const app = express()
 
-const compiler = webpack(config);
-const middleware = webpackMiddleware(compiler, {
-	publicPath: config.output.publicPath,
-	contentBase: 'src',
-	stats: {
-		colors: true,
-		hash: false,
-		timings: true,
-		chunks: false,
-		lazy: true,
-		chunkModules: false,
-		modules: false
-	}
-})
+const compiler = webpack(webpackConfig)
+const middleware = webpackMiddleware(compiler, { noInfo: false })
+checkNeededRestart(compiler, 700)
 
 app.use(middleware)
+
+
 // app.use(webpackHotMiddleware(compiler))
 
 app.use('/', sass({
@@ -44,6 +36,7 @@ app.use('/', postcss({
 }))
 
 const port = process.env.PORT || 3000
+
 app.listen(port, '0.0.0.0', (err) => {
 	if (err) console.log(err)
 	console.info(`\n==> 🌎 Listening on port ${port}. Open up https://assets.${process.env.COMPUTERNAME.toLowerCase()}.rabota.ua:${port} in your browser.\n`)

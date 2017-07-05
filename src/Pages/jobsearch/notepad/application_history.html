@@ -29,34 +29,26 @@
 						<span data-bind="text: dictionary.invite"></span>
 					</div>
 				</div>
-
-				<div>
-					<p style="margin: 0;">
-						<span data-bind="text: dictionary.sent"></span>
-						<span data-bind="text: applyDate"></span>
-					</p>
+				<div class="applied-vacancy-actual">
+					<!-- Открыто до 25 мая 2017 -->
 				</div>
-
-				<!--<div class="applied-vacancy-actual">-->
-					<!--Открыто до 25 мая 2017-->
-				<!--</div>-->
 			</div>
 
 			<div class="applied-vacancy-preview fd-f-left">
 				<div class="applied-vacancy-logo fd-f-center-middle">
 					<a target="_blank" data-bind="attr: {href: linkToCompany}">
-						<img src="" data-bind="attr: {src: companyLogo}" alt="">
+						<img data-bind="attr: {src: companyLogo}" alt="">
 					</a>
 				</div>
 				<div class="applied-vacancy-info">
 					<div class="applied-vacancy-name">
 						<a style="color: #222;" target="_blank" data-bind="attr: {href: linkToVacancy}, text: vacancyName"></a>
 					</div>
-					<div class="fd-f-left f-text-black">
+					<div class="fd-f-left">
 						<div class="applied-vacancy-company">
-							<a style="color: #222;" target="_blank" data-bind="text: formattedCompanyName, attr: {href: linkToCompany}"></a>
+							<a style="color: #222;" target="_blank" data-bind="text: companyName, attr: {href: linkToCompany}"></a>
 						</div>
-						<div class="applied-vacancy-salary fd-fat-craftsmen" data-bind="if: salary">
+						<div class="applied-vacancy-salary" data-bind="if: salary">
 							<span data-bind="text: salary"></span> <span>грн</span>
 						</div>
 						<div class="applied-vacancy-city">
@@ -65,46 +57,8 @@
 						</div>
 					</div>
 				</div>
-
-				<div data-bind="visible: vacancyIsClosed" class="applied-vacancy-preview-vac-closed">
-					<p class="fd-craftsmen f-text-black">
-						<img src="" alt="vacancy completed" data-bind="attr: { src: vacancyCloseIcon }">
-						<span data-bind="text: dictionary.vacancyClosed"></span>
-					</p>
-				</div>
 			</div>
-
-
-			<div data-bind="if: isResumeVisible" class="comparison-top-wrap -cvname-and-letter fd-f-between">
-				<p data-bind="if: resumeName" class="cvname-color fd-serf">
-					<span data-bind="text: dictionary.sentCvText"></span>
-					<span data-bind="text: resumeName"></span>
-				</p>
-				<div class="letter-color fd-serf" data-bind="if: letter">
-					<p data-bind="text: dictionary.letterText, click: showLetterBox"></p>
-
-					<div class="letter-popup" data-bind="visible: letterBoxIsShow">
-						<div class="f-text-dark-gray">
-							<p data-bind="text: letter"></p>
-							<img src="" class="letter-close-icon" alt="close" data-bind="click: closeLetterBox, attr: { src: letterCloseIcon }" />
-						</div>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="comparison-top-wrap comparison-title" data-bind="visible: isResumeVisible">
-				<h2 class="fd-fat-soldier f-text-dark-gray" data-bind="text: comparisonTitle"></h2>
-			</div>
-
-			<div class="comparison-top-wrap" data-bind="reactComparison: reactProps"></div>
-
-
-
-
-
-
-			<!--<div data-bind="if: isResumeVisible">
+			<div data-bind="if: isResumeVisible">
 				<div class="applied-resume-info">
 					<h3 class="f-custom-heading -small fd-fat-soldier" data-bind="text: dictionary.status"></h3>
 					<div class="applied-resume-name" data-bind="if: resumeId">
@@ -157,12 +111,9 @@
 
 					</div>
 				</div>
-			</div>-->
-
-
-
-			<div class="applied-resume-btn-wrapper">
-				<a href="#" class="applied-resume-btn" type="button" data-bind="click: resumeToggle">
+			</div>
+			<div class="applied-resume-btn-wrapper" data-bind="click: resumeToggle">
+				<a href="#" class="applied-resume-btn" type="button">
 					<span data-bind="text: toggleBtnText"></span> &nbsp;
 					<i data-bind="css: { '-arrow-up': isResumeVisible }" class="fi-drop-down-icon"></i>
 				</a>

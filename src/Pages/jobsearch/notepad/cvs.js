@@ -355,7 +355,7 @@ function CvsModel() {
 	model.maxAvailable = 5
 
 	model.resumes = ko.observableArray([])
-	model.resumesCount = ko.observable(0)
+	model.resumesCount = ko.observable()
 
 	model.resumesAvailableText = ko.computed(() => `${model.resumesCount()}/${model.maxAvailable}`)
 
