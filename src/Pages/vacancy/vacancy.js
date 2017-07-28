@@ -1,14 +1,11 @@
-/* global SetValidationControl */
-
 import './vacancy_cv_header.js'
 import './grab_vacancies_stat.js'
 import '../../commons/recommendator.js'
 //Preact dependencies
-import { h, render } from 'preact'
-import ComparisonCandidates from '../../shared-components/ComparisonCandidates/ComparisonCandidates.jsx'
+
 
 // RUA vars
-const { apiUrl: api, ukrainian, attach, vacancyId, applyId } = ruavars
+const { ukrainian } = ruavars
 
 export function togglAdditionalLinks() {
 	$('.f-additional-links-title, .f-share').click(function() {
@@ -52,6 +49,7 @@ let fileUpload = $('#spFile .resume_file')
 fileUpload.change(function() {
 	let index = this.value.lastIndexOf('\\') + 1
 	let value = this.value.substring(index)
+
 	$(this).closest('label').find('span:last-of-type').text(value)
 	if (this.value) {
 		$(this).closest('label').addClass('f-attached').find('span:first-of-type').css('display', 'none')
@@ -222,152 +220,4 @@ jQuery(document).ready($ => {
 
 //Compare info block
 
-jQuery(document).ready($ => {
-	let salaries, experiences
 
-	const defaultOptionText = ukrainian ? 'Оберіть варіант відповіді' : 'Выберите вариант ответа';
-
-	const salaryForm = $('.compare-info-form #salary')
-	const experienceForm = $('.compare-info-form #experience')
-
-	const getCompareExperienceParamsHelper = () => {
-		return $.ajax({
-			method: 'GET',
-			url: `${api}/dictionary/statusapplication/experience`
-		}).success(response => {
-			experiences = response
-			experienceForm.append(`<option value="0">${defaultOptionText}</option>`)
-			experiences.forEach(item => {
-				const text = ukrainian ? item.ua : item.ru
-				experienceForm.append(`<option value="${item.id}">${text}</option>`)
-			})
-		}).fail(error => console.log(error.statusText))
-	}
-
-	const getCompareSalaryParamsHelper = () => {
-		return $.ajax({
-			method: 'GET',
-			url: `${api}/dictionary/statusapplication/salary`
-		}).success(response => {
-			salaries = response
-			salaryForm.append(`<option value="0">${defaultOptionText}</option>`)
-			salaries.forEach(item => {
-				const text = ukrainian ? item.ua : item.ru
-				salaryForm.append(`<option value="${item.id}">${text}</option>`)
-			})
-		}).fail(error => console.log(error.statusText))
-	}
-
-	const getCompareInfoHelper = (salaryId, experienceId) => {
-		return $.ajax({
-			method: 'POST',
-			url: `${api}/account/jobsearch/statusapplication`,
-			data: {
-				vacancyId,
-				salaryId,
-				experienceId,
-				applyId,
-				attach
-			}
-		})
-	}
-
-	$.when(getCompareExperienceParamsHelper(), getCompareSalaryParamsHelper()).done(() => {
-		$('.compare-info-container').removeClass('hidden-after-apply-block')
-	}).fail(error => console.log(error.statusText))
-
-	const invalidSalarySelectMessage = ukrainian ? 'Вкажіть зарплатню' : 'Укажите зарплату';
-	const invalidExperienceSelectMessage = ukrainian ? 'Вкажіть досвід' : 'Укажите опыт';
-
-
-	$('.compare-info-skip-button').click(() => {
-		$('.compare-info-container, .f-vacancy-afterapply__leftwrapper').toggleClass('hidden-after-apply-block')
-	})
-	$('.compare-info-get-button').click(() => {
-		const isSalaryInputValid = validateCompareSelect(salaryForm, invalidSalarySelectMessage);
-		const isExperienceInputValid = validateCompareSelect(experienceForm, invalidExperienceSelectMessage);
-		if (!isExperienceInputValid || !isSalaryInputValid) return;
-
-		const selectedSalaryId = +salaryForm.val();
-		const selectedExperienceId = +experienceForm.val();
-		getCompareInfoHelper(selectedSalaryId, selectedExperienceId).success(response => {
-			const { salary, experience, complete } = response;
-			if (!salary || !experience) {
-				render(
-					h(ComparisonCandidates, { showInsufficientData: !complete }),
-					document.getElementById('compare-candidates')
-				);
-				$('.compare-info-container, .f-vacancy-afterapply__leftwrapper, #compare-candidates').toggleClass('hidden-after-apply-block')
-				return;
-			}
-			const selectedSalary = salaries.filter(salary => salary.id === selectedSalaryId)[0]
-
-			const selectedSalaryText = ukrainian ? selectedSalary.ua : selectedSalary.ru
-			const selectedExperience = experiences.filter(experience => experience.id === selectedExperienceId)[0]
-			const selectedExperienceText = ukrainian ? selectedExperience.ua : selectedExperience.ru;
-
-			const dictionary = {
-				salaryExpect: ukrainian ? 'Очікування по зарплатні' : 'Ожидание по зарплате',
-				experienceExpect: ukrainian ? 'Досвід роботи' : 'Опыт работы',
-				salaryLessThan: ukrainian ? 'Ці кандидати вказали рівень зарплатні нижче, ніж ви' : 'Эти кандидаты указали уровень зарплаты ниже, чем вы',
-				salaryEqualTo: ukrainian ? 'Ці кандидати вказали такий самий рівень зарплатні' : 'Эти кандидаты указали такой же уровень зарплаты',
-				salaryMoreThan: ukrainian ? 'Ці кандидати розраховують на більш високу зарплатню' : 'Эти кандидаты рассчитывают на более высокую зарплату',
-				experienceLessThan: ukrainian ? 'У цих кандидатів вказано досвід роботи нижче, ніж увас' : 'У этих кандидатов указан опыт работы меньше, чем у вас',
-				experienceEqualTo: ukrainian ? 'У цих кандидатів вказано такий самий досвід роботи' : 'У этих кандидатов указан такой же опыт работы',
-				experienceMoreThan: ukrainian ? 'У цих кандидатів вказано більший досвід роботи' : 'У этих кандидатов указан больший опыт работы',
-				unsuffTitleBold: ukrainian ? 'На жаль, недостатньо інформації для статистики.' : 'К сожалению, недостаточно информации для статистики.',
-				unsuffTitle: ukrainian ? 'Ми надішлемо вам статистику на e-mail, як тільки більше кандидатів пройде опитування' : 'Мы пришлем вам статистику на e-mail, как только больше кандидатов пройдет опрос.',
-				unsuffSubTitle: ukrainian ? 'Порівняльна статистика по вакансії:' : 'Сравнительная статистика по вакансии:',
-				unsuffSalaryExpect: ukrainian ? 'Очікувана зарплатня' : 'Ожидаемая зарплата',
-				unsuffExperienceExpect: ukrainian ? 'Досвід роботи на аналогічній позиції' : 'Опыт работы на аналогичной позиции'
-			}
-
-			const props = {
-				collapseView: false,
-				dictionary,
-				showInsufficientData: !complete,
-				salary: {
-					parts: salary,
-					text: selectedSalaryText
-				},
-				experience: {
-					parts: experience,
-					text: selectedExperienceText
-				}
-			}
-			render(
-				h(ComparisonCandidates, props),
-				document.getElementById('compare-candidates')
-			)
-			$('.compare-info-container, .f-vacancy-afterapply__leftwrapper, #compare-candidates').toggleClass('hidden-after-apply-block')
-		})
-	})
-
-	salaryForm.change(validateCompareSelect.bind(null, salaryForm, invalidSalarySelectMessage))
-	experienceForm.change(validateCompareSelect.bind(null, experienceForm, invalidExperienceSelectMessage))
-
-	function validateCompareSelect(select, message) {
-		const isValid = !!+select.val();
-		const errorDiv = select.closest('.f-input-block')
-		SetValidationControl(errorDiv.attr('id'), message, isValid);
-		return isValid;
-	}
-
-
-})
-
-
-//Injecting of the preact component
-
-
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-	if(ruavars.cid && ruavars.transactionId) {
-		let img = document.createElement('IMG')
-		img.src = `https://pixel-dot-rualogs.appspot.com/pixel.gif?cid=${ruavars.cid}&exp=js`
-		document.body.appendChild(img)
-	}
-})

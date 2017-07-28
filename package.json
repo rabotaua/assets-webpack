@@ -4,11 +4,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
+    "lint:js": "eslint ./src --color",
     "start": "node server.js",
     "build:gulp": "gulp",
     "build:webpack": "webpack -p --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:gulp && npm run build:webpack",
-    "deploy": "node deploy.js"
+    "deploy": "node deploy.js",
+    "precommit": "lint-staged",
+    "postmerge": "git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -q package.json && npm install || true"
+  },
+  "lint-staged": {
+    "*.js": "lint:js"
   },
   "author": "rabota.ua",
   "main": "server.js",
@@ -23,6 +29,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "chokidar": "^1.7.0",
+    "eslint": "^4.3.0",
+    "eslint-loader": "^1.9.0",
     "express": "^4.15.3",
     "forever": "^0.15.3",
     "git-rev": "^0.2.1",
@@ -32,6 +40,7 @@
     "gulp-cssnano": "^2.1.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
+    "husky": "^0.14.3",
     "js-cookie": "^2.1.4",
     "mime-types": "^2.1.15",
     "moment": "^2.18.1",
@@ -39,6 +48,7 @@
     "node-sass": "^4.5.3",
     "node-sass-middleware": "^0.11.0",
     "postcss-middleware": "^1.1.3",
+    "pre-commit": "^1.2.2",
     "preact": "^8.1.0",
     "qs": "^6.4.0",
     "rimraf": "^2.6.1",

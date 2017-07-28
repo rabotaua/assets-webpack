@@ -1,0 +1,48 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jquery": true
+  },
+  "globals": {
+    "_gaq": true,
+    "ukrainian": true,
+    "ruavars": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-debugger": 0,
+    "no-console": 0,
+    "new-cap": 0,
+    "strict": 0,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "no-undef": 1,
+    "eol-last": 0,
+    "no-useless-escape": 1,
+    "quotes": 0,
+    "no-unreachable": 0,
+    "no-unused-vars": [
+      1,
+      {
+        "varsIgnorePattern": "^h$"
+      }
+    ],
+    /* h for preact */
+    "comma-dangle": 0,
+    "no-class-assign": 0,
+    "no-mixed-spaces-and-tabs": 1,
+    "jsx-quotes": [
+      2,
+      "prefer-double"
+    ]
+  }
+}

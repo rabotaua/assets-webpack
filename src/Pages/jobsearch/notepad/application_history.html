@@ -7,9 +7,14 @@
 		</h2>
 	</header>
 
+	<div data-bind="if: total() === 0">
+		<img style="opacity: 0;" class="fade-in-zero-result" src="" alt="zero result"
+			 data-bind="attr: { src: zeroResultPic }">
+	</div>
+
 	<div data-bind="foreach: vacancies">
 
-		<section class="applied-vacancy">
+		<section class="applied-vacancy" style="opacity: 0;">
 			<div class="applied-vacancy-header fd-f-between">
 				<div class="fd-f-left">
 					<div class="applied-vacancy-viewed" data-bind="if: isViewed">
@@ -17,7 +22,14 @@
 						<span data-bind="text: dictionary.viewed"></span>&nbsp;<span data-bind="text: dateView"></span>
 					</div>
 					<div class="applied-vacancy-not-viewed" data-bind="ifnot: isViewed">
-						<i class="fi-invisible"></i>
+
+						<i>
+							<img src="" alt="not viewed" data-bind="attr: { src: notViewedIcon }">
+							<span class="applied-vacancy-not-viewed-tooltip fd-serf"
+								  data-bind="text: dictionary.notViewedTooltip"></span>
+						</i>
+
+
 						<span data-bind="html: dictionary.noDataHeader"></span>
 					</div>
 					<div class="applied-vacancy-decline" data-bind="if: declined">
@@ -29,26 +41,41 @@
 						<span data-bind="text: dictionary.invite"></span>
 					</div>
 				</div>
-				<div class="applied-vacancy-actual">
-					<!-- Открыто до 25 мая 2017 -->
+
+				<div>
+					<p style="margin: 0;">
+						<span data-bind="text: dictionary.sent"></span>
+						<span data-bind="text: applyDate"></span>
+					</p>
 				</div>
+
+				<!--<div class="applied-vacancy-actual">-->
+				<!--Открыто до 25 мая 2017-->
+				<!--</div>-->
 			</div>
 
 			<div class="applied-vacancy-preview fd-f-left">
 				<div class="applied-vacancy-logo fd-f-center-middle">
-					<a target="_blank" data-bind="attr: {href: linkToCompany}">
-						<img data-bind="attr: {src: companyLogo}" alt="">
-					</a>
+					<span data-bind="if: notebookId">
+						<a target="_blank" data-bind="attr: {href: linkToCompany}">
+							<img src="" data-bind="attr: {src: companyLogo}" alt="company logo">
+						</a>
+					</span>
+					<span data-bind="ifnot: notebookId">
+							<img src="" data-bind="attr: {src: companyLogo}" alt="company logo">
+						</span>
 				</div>
 				<div class="applied-vacancy-info">
 					<div class="applied-vacancy-name">
-						<a style="color: #222;" target="_blank" data-bind="attr: {href: linkToVacancy}, text: vacancyName"></a>
+						<a style="color: #222;" target="_blank"
+						   data-bind="attr: {href: linkToVacancy}, text: vacancyName"></a>
 					</div>
-					<div class="fd-f-left">
+					<div class="fd-f-left f-text-black" style="flex-wrap: wrap">
 						<div class="applied-vacancy-company">
-							<a style="color: #222;" target="_blank" data-bind="text: companyName, attr: {href: linkToCompany}"></a>
+							<a style="color: #222;" target="_blank"
+							   data-bind="text: formattedCompanyName, attr: {href: linkToCompany}"></a>
 						</div>
-						<div class="applied-vacancy-salary" data-bind="if: salary">
+						<div class="applied-vacancy-salary fd-fat-craftsmen" data-bind="if: salary">
 							<span data-bind="text: salary"></span> <span>грн</span>
 						</div>
 						<div class="applied-vacancy-city">
@@ -57,63 +84,46 @@
 						</div>
 					</div>
 				</div>
+
+				<div data-bind="visible: vacancyIsClosed" class="applied-vacancy-preview-vac-closed">
+					<p class="fd-craftsmen f-text-black">
+						<img src="" alt="vacancy completed" data-bind="attr: { src: vacancyCloseIcon }">
+						<span data-bind="text: dictionary.vacancyClosed"></span>
+					</p>
+				</div>
 			</div>
-			<div data-bind="if: isResumeVisible">
-				<div class="applied-resume-info">
-					<h3 class="f-custom-heading -small fd-fat-soldier" data-bind="text: dictionary.status"></h3>
-					<div class="applied-resume-name" data-bind="if: resumeId">
-						<a style="color: #222;" target="_blank" data-bind="text: resumeName, attr: {href: linkToCV}"></a>
-					</div>
-					<div class="applied-resume-name" data-bind="ifnot: resumeId">
-						<span data-bind="text: resumeName"></span>
-					</div>
-					<div class="fd-f-left fm-c-stretch">
-						<div class="timeline-block fd-f2">
-							<div class="timeline-border-icon"><i class="fi-checked-company"></i></div>
-							<div class="timeline-text">Доставлено <br> <span data-bind="text: applyDate"></span></div>
-						</div>
 
-						<div data-bind="if: isViewed, css: {'fd-f2': isViewed}">
-							<div class="timeline-block">
-								<div class="timeline-border-icon"><i class="fi-checked-company"></i></div>
-								<div class="timeline-text"><span data-bind="text: dictionary.viewed"></span> <br>
-									<span data-bind="text: dateView"></div>
-							</div>
-						</div>
 
-						<div data-bind="ifnot: isViewed, css: {'fd-f2': isResumeViewed}">
-							<div class="timeline-block">
-								<div class="timeline-border-icon"><i class="timeline-wait-icon"></i></div>
-								<div class="timeline-text" data-bind="html: dictionary.noData"></div>
-							</div>
-						</div>
+			<div data-bind="if: isResumeVisible" class="comparison-top-wrap -cvname-and-letter fd-f-between">
+				<p data-bind="if: resumeName" class="cvname-color fd-serf">
+					<span data-bind="text: dictionary.sentCvText"></span>
+					<a class="cvname-color" target="_blank" data-bind="text: resumeName, attr: {href: linkToCV}"></a>
+				</p>
+				<div class="letter-color fd-serf" data-bind="if: letter">
+					<p data-bind="text: dictionary.letterText, click: showLetterBox"></p>
 
-						<div data-bind="if: isWaitingForFeedback">
-							<div class="timeline-block">
-								<div><i class="timeline-wait-icon"></i></div>
-								<div class="timeline-text" data-bind="html: dictionary.waitingForResponse"></div>
-							</div>
+					<div class="letter-popup" data-bind="visible: letterBoxIsShow">
+						<div class="f-text-dark-gray">
+							<p data-bind="html: letter" style="word-break: break-word; overflow-wrap: break-word"></p>
+							<img src="" class="letter-close-icon" alt="close"
+								 data-bind="click: closeLetterBox, attr: { src: letterCloseIcon }"/>
 						</div>
-
-						<div data-bind="if: invited">
-							<div class="timeline-block">
-								<div><i class="fi-checked-company"></i></div>
-								<div class="timeline-text" data-bind="html: dictionary.invited"></div>
-							</div>
-						</div>
-
-						<div data-bind="if: declined">
-							<div class="timeline-block">
-								<div><i class="fi-decline -application"></i></div>
-								<div class="timeline-text" data-bind="html: dictionary.declined"></div>
-							</div>
-						</div>
-
 					</div>
 				</div>
 			</div>
-			<div class="applied-resume-btn-wrapper" data-bind="click: resumeToggle">
-				<a href="#" class="applied-resume-btn" type="button">
+
+
+			<div data-bind="animationToggle: isResumeVisible">
+				<div class="comparison-top-wrap comparison-title" data-bind="css: { '-show': isResumeVisible }">
+					<h2 class="fd-fat-soldier f-text-dark-gray" data-bind="text: comparisonTitle"></h2>
+				</div>
+
+				<div class="react_mount comparison-top-wrap" data-bind="reactComparison: reactProps"></div>
+			</div>
+
+			<div class="applied-resume-btn-wrapper">
+				<a href="#" class="applied-resume-btn" type="button"
+				   data-bind="css: { 'expand': isResumeVisible, 'collapse': !isResumeVisible() }, click: resumeToggle">
 					<span data-bind="text: toggleBtnText"></span> &nbsp;
 					<i data-bind="css: { '-arrow-up': isResumeVisible }" class="fi-drop-down-icon"></i>
 				</a>

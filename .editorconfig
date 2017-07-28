@@ -14,4 +14,8 @@ indent_size = 2
 
 [.babelrc]
 indent_style = space
+indent_size = 12
+
+[.eslintrc]
+indent_style = space
 indent_size = 2

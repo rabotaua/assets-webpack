@@ -196,7 +196,7 @@ function ResumeModel(id, cities, parent) {
 				//Temporal fix
 				//TODO: figure out why ua var is false at runtime
 				const uaPrefix = window.location.pathname.indexOf('/ua/') >= 0 ? '/ua' : ''
-				d.vacancyLink = d.notebookId ? `${uaPrefix}/company${d.notebookId}/vacancy${d.id}` : null
+				d.vacancyLink = d.notebookId ? `${uaPrefix}/company${d.notebookId}/vacancy${d.id}?ref=cv_tag&cre=${ruavars.pageName}&pos=under_cv` : null
 
 				d.companyLink = d.notebookId ? `${uaPrefix}/company${d.notebookId}` : null
 				d.isCompanyProfile = !d.anonymous && d.showProfile

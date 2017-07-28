@@ -1,4 +1,5 @@
 @import "viewers";
+@import "../../../shared-components/ComparisonCandidates/styles";
 
 .applied-vacancies {
 	&-list {
@@ -21,7 +22,7 @@
 
 	&-header {
 		padding: 24px 40px 16px;
-		border-bottom: 1px solid #ddd;
+		//border-bottom: 1px solid #ddd;
 		font-size: 14px;
 	}
 
@@ -34,11 +35,55 @@
 
 	&-not-viewed {
 		font-size: 13px;
+		cursor: pointer;
 
 		& i {
+			position: relative;
 			color: #bbbbbb;
 			padding-right: 3px;
 			vertical-align: middle;
+		}
+
+		& img {
+			vertical-align: middle;
+			margin-top: -3px;
+			margin-right: 2px;
+		}
+
+		&:hover &-tooltip {
+			display: block;
+			opacity: 1;
+			visibility: visible;
+			transition: opacity 0.5s ease;
+			z-index: 30;
+		}
+
+		&-tooltip {
+			font-style: normal;
+			background-color: #555555;
+			opacity: 0;
+			visibility: hidden;
+			position: absolute;
+			padding: 10px 12px;
+			color: #fff;
+			width: 330px;
+			border-radius: 2px;
+			display: inline-block;
+			left: 50%;
+			transform: translateX(-50%);
+			top: 23px;
+			margin-left: -4px;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 50%;
+				top: -5px;
+				transform: translateX(-50%);
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-bottom: 5px solid #555;
+			}
 		}
 	}
 
@@ -61,15 +106,43 @@
 	}
 
 	&-preview {
-		padding: 16px 40px;
+		padding: 16px 25px;
+		margin: 10px 40px;
+		border: 1px solid #ddd;
+		position: relative;
+	}
+
+	&-preview-vac-closed {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #f4f4f4;
+		opacity: 0.85;
+		z-index: 10;
+
+		& p {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 20px;
+			margin: 0;
+		}
+
+		& img {
+			height: 15px;
+			vertical-align: middle;
+			margin-right: 5px;
+		}
 	}
 
 	&-logo {
 		width: 60px;
+		margin-right: 25px;
 
 		& img {
 			max-width: 60px;
-			padding: 0 24px 0 0;
 			display: block;
 		}
 	}
@@ -95,10 +168,6 @@
 	}
 
 	&-salary {
-		font-size: 14px;
-      	color: #222;
-      	font-family: "Graphik Medium", sans-serif;
-
       	& span:last-child {
 			padding-right: 16px;
 		}
@@ -181,6 +250,7 @@
 	    padding: 10px;
 	    box-sizing: border-box;
 	    font-family: "Graphik Medium", sans-serif;
+		user-select: none;
 
     	& i {
     		padding: 0;
@@ -261,4 +331,183 @@
 		left: -4.5px;
 		border-radius: 50%;
 	}
+}
+
+
+.f-cmprs-cands {
+	padding: 0;
+}
+
+.comparison-top-wrap {
+	padding: 16px 40px;
+
+	&.-cvname-and-letter  {
+		padding-top: 0;
+		padding-bottom: 0;
+
+		& p {
+			margin: 0;
+		}
+	}
+}
+
+.comparison-title {
+	margin: 20px 0 -15px;
+
+	& h2 {
+		margin: 0;
+	}
+}
+
+.letter-color {
+	color: #78909c;
+	border-bottom: 1px dashed #78909c;
+	cursor: pointer;
+	position: relative;
+}
+
+.cvname-color {
+	color: #aaaaaa;
+}
+
+.letter-popup {
+	position: absolute;
+	padding: 22px 26px;
+	background-color: #ecf6e9;
+	left: 50%;
+	top: 30px;
+	transform: translateX(-50%);
+	border: solid 1px #dddddd;
+	box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.12);
+	width: 400px;
+	z-index: 1000;
+
+	& p {
+		cursor: default;
+	}
+
+	&::after {
+		content: '';
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid #ecf6e9;
+
+		position: absolute;
+		top: -10px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	& .letter-close-icon {
+		position: absolute;
+		top: 7px;
+		right: 7px;
+		width: 13px;
+		height: 13px;
+		user-select: none;
+	}
+}
+
+.applied-vacancy {
+	animation: fadeIn 0.3s ease-in;
+	animation-delay: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+.comparison-top-wrap {
+	& .-collapsed {
+		animation: slideInUp 0.5s ease;
+	}
+
+	& .-expanded {
+		animation: slideInDown 0.5s ease;
+	}
+}
+
+.comparison-title {
+	animation: titleFadeOut 0.4s ease;
+	animation-fill-mode: forwards;
+	opacity: 0;
+
+	&.-show {
+		animation: titleFadeIn 0.6s ease;
+		animation-delay: 0.2s;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes titleFadeIn {
+		to { opacity: 1; visibility: visible; height: auto; }
+	}
+
+	@keyframes titleFadeOut {
+		to {
+			opacity: 0;
+			visibility: hidden;
+			height: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			padding-top: 0;
+			padding-bottom: 0
+		}
+	}
+}
+
+
+.applied-resume-btn {
+	&.expand {
+		animation: fadeIn 0.8s ease;
+	}
+}
+
+
+.react_mount {
+
+	.f-cmprs-cands.-collapsed {
+		animation: slideUpHeight 0.7s ease, slideInUp 0.7s ease;
+
+		@keyframes slideUpHeight {
+			from { height: 250px; opacity: 0 }
+			to { height: 58px; opacity: 1 }
+		}
+	}
+
+
+	.f-cmprs-cands {
+		&.-insuff, &.-yetnot, &.-vacclosed {
+			animation: slideInDown 0.6s ease;
+		}
+	}
+
+	&:empty {
+		animation: prettySlideUp 0.5s ease;
+
+		@keyframes prettySlideUp {
+			from { height: 100px; }
+			to { height: 0; }
+		}
+	}
+}
+
+.fade-in-zero-result {
+	margin-top: 20px;
+	max-width: 100%;
+	animation: fadeIn 0.5s ease;
+	animation-fill-mode: forwards;
+}
+
+@keyframes slideInDown {
+	from { transform: translate3d(0, -25%, 0) }
+	to { transform: translate3d(0, 0, 0) }
+}
+
+@keyframes slideInUp {
+	from { transform: translate3d(0, 40%, 0) }
+	to { transform: translate3d(0, 0, 0) }
+}
+
+@keyframes fadeIn {
+	from { opacity: 0 }
+	to { opacity: 1 }
 }

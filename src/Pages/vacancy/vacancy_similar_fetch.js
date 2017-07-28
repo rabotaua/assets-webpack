@@ -1,9 +1,11 @@
-/* global ukrainian, vacancyId, cityName, apiHostName, allVacanciesLinkRight, allVacanciesLinkBottom */
+/* global ruavars */
 
 import Mustache from 'mustache'
 import Cookie from 'js-cookie'
 import qs from 'qs'
 import whenBecomeVisible from '../../commons/whenBecomeVisible'
+
+const {apiUrl: api, ukrainian, vacancyId, cityName, allVacanciesLinkRight, allVacanciesLinkBottom, pageName} = ruavars
 
 const guid = qs.parse(Cookie.get('rua-usm') || 'id=').id
 
@@ -91,10 +93,10 @@ jQuery(document).ready(function() {
 		})
 	}
 
-	function getSimilarVacancies(apiHostName, isHotOnly) {
+	function getSimilarVacancies(api, isHotOnly) {
 		return jQuery.ajax({
 			type: 'POST',
-			url: apiHostName.replace('api', ukrainian ? 'ua-api' : 'api') + '/vacancy/similar',
+			url: api.replace('api', ukrainian ? 'ua-api' : 'api') + '/vacancy/similar2',
 			data: JSON.stringify({ isHotOnly, vacancyId, count: 5 }),
 			dataType: 'json',
 			contentType: 'application/json',
@@ -131,8 +133,8 @@ jQuery(document).ready(function() {
 
 	function render2blocks() {
 		jQuery.when(
-			getSimilarVacancies(apiHostName, false),
-			getSimilarVacancies(apiHostName, true)
+			getSimilarVacancies(api, false),
+			getSimilarVacancies(api, true)
 		).then(function(all, hot) {
 			hot = hot[0].filter(function(item) {
 				return item.id !== vacancyId;
@@ -166,8 +168,8 @@ jQuery(document).ready(function() {
 					ukrainian ? 'Схожі гарячі вакансії' : 'Похожие горячие вакансии',
 					hot,
 					'<span class="fi-hot"></span>',
-					allVacanciesLinkRight,
-					'',
+					`${allVacanciesLinkRight}&ref=hot_similar&cre=${pageName}&pos=sidebar_hot_vac_all`,
+					`?ref=hot_similar&cre=${pageName}&pos=sidebar_hot_vac`,
 					'-offset-bottom -hot', /* additional classes */
 					'ga_hot_similar ga_sidebar_hot_vac', /*ga_class */
 					false /* bold title */
@@ -179,8 +181,8 @@ jQuery(document).ready(function() {
 					ukrainian ? 'Схожі вакансії' : 'Похожие вакансии',
 					all_bottom,
 					'', /* icon -> empty */
-					allVacanciesLinkBottom,
-					'',
+					`${allVacanciesLinkBottom}&ref=similar&cre=${pageName}&pos=under_similar_vac_all`,
+					`?ref=similar&cre=${pageName}&pos=under_similar_vac`,
 					'-bottom-block -similar_bottom -offset-bottom', /* additional class */
 					'ga_similar ga_under_similar_vac',
 					true /* bold title */)
@@ -204,8 +206,8 @@ jQuery(document).ready(function() {
 				ukrainian ? 'Схожі вакансії' : 'Похожие вакансии',
 				reversedList,
 				'',
-				allVacanciesLinkBottom,
-				'',
+				`${allVacanciesLinkBottom}&ref=similar&cre=${pageName}&pos=sidebar_similar_vac_all`,
+				`?ref=similar&cre=${pageName}&pos=sidebar_similar_vac`,
 				'-similar_right',
 				'ga_similar ga_sidebar_similar_vac',
 				false)
@@ -223,7 +225,7 @@ jQuery(document).ready(function() {
 		if ($('form').hasClass('authorized_jobsearcher')) {
 			$.ajax({
 				type: 'POST',
-				url: `${apiHostName}/account/jobsearch/recommended?guid=${guid}`,
+				url: `${api}/account/jobsearch/recommended?guid=${guid}`,
 				dataType: 'json',
 				xhrFields: {
 					withCredentials: true
@@ -258,8 +260,8 @@ jQuery(document).ready(function() {
 						ukrainian ? 'Рекомендовані вакансії' : 'Рекомендуемые вакансии',
 						editedResponse,
 						'<span class="fi-recomended"></span>',
-						'/jobsearch/notepad/vacancies_profile_popular',
-						'',
+						`/jobsearch/notepad/vacancies_profile_popular?ref=recom_new&cre=${window.location.href.indexOf('thanksforapply') > 0 ? 'thanks4apply' : pageName}&pos=sidebar_recom_vac_all`,
+						`?ref=recom_new&cre=${window.location.href.indexOf('thanksforapply') > 0 ? 'thanks4apply' : pageName}&pos=sidebar_recom_vac`,
 						'-offset-bottom -recomend',
 						'ga_recom_new ga_sidebar_recom_vac',
 						false
@@ -270,6 +272,12 @@ jQuery(document).ready(function() {
 			})
 		}
 	}
+
+	if (document.querySelector('.seo_holder_bottom')) {
+		console.log('seo_holder_bottom', document.querySelector('.seo_holder_bottom').className)
+		console.log('has data-exp', document.querySelector('.seo_holder_bottom').hasAttribute('data-exp') ? 'Y' : 'N')
+	}
+	console.log('form', document.querySelector('form').className)
 
 	if (!isThxApplyPage) {
 		render2blocks()

@@ -1,0 +1,74 @@
+.f-wait-feedback {
+	padding: 12px 13px;
+	position: relative;
+	display: none;
+	max-width: 960px;
+	margin: 15px auto 0;
+	border: solid 1px #ddd4d4;
+	box-sizing: border-box;
+
+	&.-show {
+		display: block;
+		animation: fadeIn 0.5s ease;
+		animation-fill-mode: forwards;
+
+		@keyframes fadeIn {
+			from { opacity: 0 }
+			to { opacity: 1 }
+		}
+	}
+
+	& > * {
+		font-family: Arial, sans-serif;
+	}
+
+	&__left {
+		margin-right: 10px;
+	}
+
+	&__counter {
+		background-color: #92f9ed;
+		color: #6d6d6d;
+		border-radius: 50%;
+		height: 61px;
+		width: 61px;
+		position: relative;
+
+		& span {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	&__firsttitle, &__secondtitle {
+		margin: 0;
+	}
+
+	&__firsttitle {
+		color: #4b4b4b;
+	}
+
+	&__secondtitle {
+		color: #6d6d6d;
+		margin: 5px 0;
+	}
+
+	&__markall {
+		color: #4a90e2;
+		font-size: 16px;
+		border-bottom: 1px dashed #4a90e2;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	&__close {
+		cursor: pointer;
+		position: absolute;
+		top: 13px;
+		right: 13px;
+	}
+}
