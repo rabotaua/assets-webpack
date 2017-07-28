@@ -1,10 +1,12 @@
 const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const isProd = process.env.NODE_ENV === 'production'
 
-
-module.exports = {
+let config = {
+    devtool: 'source-map',
     entry: glob.sync('./src/**/*.js').reduce((entries, entry) => Object.assign(entries, { [entry.replace('./src/', '').replace('.js', '')]: entry }), {}),
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -33,3 +35,31 @@ module.exports = {
         })
     ]
 }
+
+const productionPlugins = [
+    new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        generateStatsFile: true,
+        openAnalyzer: false,
+    }),
+    new webpack.DefinePlugin({
+        'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+        }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
+        comments: false,
+        beautify: false,
+        compress: {
+            warnings: false
+        }
+    }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en|uk/)
+]
+
+if(isProd) {
+    config.plugins.push(...productionPlugins)
+}
+
+module.exports = config

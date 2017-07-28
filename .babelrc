@@ -1,4 +1,12 @@
 {
+  "env": {
+    "production": {
+      /*"presets": ["react-optimize"],*/
+      "plugins": [
+        ["groundskeeper-willie", {"removeConsole": true, "removeDebugger": true}]
+      ]
+    }
+  },
   "presets": [
     "es2015",
     "stage-0",
@@ -8,18 +16,13 @@
         "targets": {
           "browsers": [
             "last 2 versions",
-            "safari >= 7"
+            "ie >= 11"
           ]
         }
       }
     ]
   ],
   "plugins": [
-    [
-      "transform-react-jsx",
-      {
-        "pragma": "h"
-      }
-    ]
+    ["transform-react-jsx", {"pragma": "h"}]
   ]
 }

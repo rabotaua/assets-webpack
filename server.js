@@ -6,7 +6,7 @@ const sass = require('node-sass-middleware')
 const postcss = require('postcss-middleware')
 const autoprefixer = require('autoprefixer')
 const webpackMiddleware = require('webpack-dev-middleware')
-const config = require('./webpack.config.dev.js')
+const config = require('./webpack.config.js')
 // const webpackHotMiddleware = require('webpack-hot-middleware')
 
 const destPath = path.join(__dirname, '/dist')
@@ -16,6 +16,17 @@ const app = express()
 let compiler = webpack(config)
 let middleware = webpackMiddleware(compiler, options)
 
+app.use('/', (req, res, next) => {
+    const entry = req.path.substring(1).replace('.js', '')
+    const target = `./src${req.path}`
+    const exists = Object.keys(config.entry).indexOf(entry) !== -1
+    if(!exists && fs.existsSync(target)) {
+        config.entry[entry] = target
+        compiler = webpack(config)
+        middleware = webpackMiddleware(compiler, options)
+    }
+    middleware(req, res, next)
+})
 
 app.use('/', sass({
 	src: path.join(__dirname, '/src'),
@@ -30,18 +41,6 @@ app.use('/', postcss({
 	src: req => path.join(destPath, req.url),
 	inlineSourcemaps: true
 }))
-
-app.use('/', (req, res, next) => {
-	const entry = req.path.substring(1).replace('.js', '')
-	const target = `./src${req.path}`
-	const exists = Object.keys(config.entry).indexOf(entry) !== -1
-	if(!exists && fs.existsSync(target)) {
-		config.entry[entry] = target
-		compiler = webpack(config)
-		middleware = webpackMiddleware(compiler, options)
-	}
-	middleware(req, res, next)
-})
 
 const port = process.env.PORT || 3000
 
