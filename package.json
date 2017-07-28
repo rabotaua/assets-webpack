@@ -10,7 +10,7 @@
     "build:webpack": "webpack -p --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:gulp && npm run build:webpack",
     "deploy": "node deploy.js",
-    "precommit": "lint-staged",
+    "precommit": "echo \"test precommit\"",
     "postmerge": "git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD | grep -q package.json && npm install || true"
   },
   "lint-staged": {
