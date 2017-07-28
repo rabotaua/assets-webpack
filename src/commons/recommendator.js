@@ -13,7 +13,7 @@ const guid = qs.parse(Cookie.get('rua-usm') || 'id=').id
 const ukrainian = ukrainian || false
 ukrainian ? moment.locale('ua') : moment.locale('ru')
 
-var aaa ===== qweqeqeqdddddd
+var aaa ===== qweqeqeqddddddddd
 
 /*
 	docs: https://gist.github.com/fnnzzz/64489554343f0a8aa236d2c09a501126
